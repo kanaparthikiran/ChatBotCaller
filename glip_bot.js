@@ -1,5 +1,5 @@
 /**
- * Created by pawan.venugopal on 10/31/16.
+ * Created by Kiran Kanaparthi.
  */
 
 "use strict";
@@ -46,10 +46,35 @@ controller.setupWebserver(process.env.port || 3000, function(err, webserver){
 });
 
 // Usage: uptime
-controller.hears(['uptime'],'message_received',function(bot, message) {
+controller.hears(['callcustomer'],'message_received',function(bot, message) {
     var hostname = os.hostname();
     var uptime = formatUptime(process.uptime());
-    bot.reply(message,'I am a bot! I have been running for ' + uptime + ' on ' + hostname + '.');
+    
+    
+   // bot.reply('Call is Initiated from the Customer Support to the Customer ' );
+    
+    var options = { method: 'POST',
+    		  url: 'https://platform.devtest.ringcentral.com/restapi/v1.0/account/~/extension/~/ring-out',  headers: 
+    		   { 'cache-control': 'no-cache',
+    		     'accept': 'application/json',
+    		     'content-type': 'application/json',
+    		     'authorization': 'Bearer U0pDMTFQMDFQQVMwMHxBQUJwOWkzV1Y0WWtSaS1RYVVOZlFDTGdsOEFUNGJsdmsyU29zUmxfanJUUmVfZkozTmczYmVOZk9RclpWZTRuLWFaNF9QWWRPMEVYNENYQjd4dmJsWHJod0ZhZ2F1REEyNFBUbnJ2enFlcXBkaHdlUk9lU3lfNlNzbG1rRlE1S1lwVE1IUDZ6MXZOSi02T1pBNThZSklKVFZydXNieF9sOVFzVjJ0ZzFTbWw1NWNNdzRKMEZZY1hVN0dicDlhU1BPcVV8TFhXTU53fDdnbVk1cExqblFXdU93ZXlwbC11NGc' },
+    		  body: 
+    		   { from: { phoneNumber: '15106731240', forwardingNumberId: '' },
+    		     to: { phoneNumber: '14157588631' },
+    		     callerId: { phoneNumber: '' },
+    		     playPrompt: false,
+    		     country: { id: '1' } },
+    		  json: true };
+
+    		request(options, function (error, response, body) {
+    		  if (error) throw new Error(error);
+
+    		  console.log(body);
+    		});
+    		
+    //	    bot.reply(message,'I am a bot! I have been running on getting the response ' + response.statusCode );
+
 });
 
 // Usage: question me
@@ -109,6 +134,7 @@ var askFlavor = function(response, convo) {
         convo.next();
     });
 }
+
 var askSize = function(response, convo) {
     convo.ask("What size do you want?", function(response, convo) {
         convo.say("Ok.")
@@ -119,7 +145,7 @@ var askSize = function(response, convo) {
 var askWhereDeliver = function(response, convo) {
     convo.ask("So where do you want it delivered?", function(response, convo) {
         var message = null;
-        message = "Ordered large pizza by pawan\n\n"
+        message = "Ordered large pizza by Kiran\n\n"
         message += "[Ticket ##1001](www.dominos.com) - ordered large pizza\n\n"
         message += "**Description**\n\n"
         message += "Ordered large cheese pizza & should delivered at home\n\n"

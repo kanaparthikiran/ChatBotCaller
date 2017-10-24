@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>ChatBotCaller</name>
+=======
+	<name>ChatBotCallerAI</name>
+>>>>>>> c304e773aeaeb10f1766cfe42b910321ecef7104
 	<comment></comment>
 	<projects>
 	</projects>
